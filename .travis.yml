@@ -17,7 +17,7 @@ deploy:
   provider: npm
   email: me@rreverser.com
   api_key:
-    secure: BuwmsjV3RTZKLS29+VMxenHuEt78xyufOcsQxj0c4bGe2/dsmVXTWSQcWtyw05ExtqT8JYrGf/QmTUndCYk0OXJFOgY9fVtVimm2ezInyCgQ1I4oDdiN3KSQ7NpBju5GdGlc/QvJVoCiFud1xxu37bdZpaIUEeM8VjPkjbnAuLw=
+    secure: EPycJqpKzGoptpxtiKZIE6o/4IDIONwDqyRg9mufeUtP+8d9oawKSaZzDRQ83JaBn5QLon+r/1Qhf7c3663GWhOuyjvfA0dH2VoF6dS9LIv7yOSLENzEVOZo89eBgR7xLbMynI/wzACGUo15NZObFPKJyYsxBauITvW2w4Gbd5I=
   on:
     tags: true
     repo: jDataView/jBinary
