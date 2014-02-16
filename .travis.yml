@@ -17,13 +17,26 @@ env:
   global:
     secure: d96Eo9anBBvr+Ucwb92yMp5ZCPi262adt6PsC8uLR+KggH2k8hU9ScAVY9OGttMecKN3dy/OevSbracBGl7C9SP/YTLfGSIO9gaPlPctqn/oF8y1xNzpr0E/KoR/uyLgUPtAWXWxUc4SK6SI3VliRFGDz6iRcVva6iWaDkUp9wY=
 after_success:
-- git clone https://RReverser:$GH_TOKEN@github.com/jDataView/dist2.git ../dist
-- cp dist/browser/* ../dist
-- pushd ../dist
-- git add .
-- git commit -m "Travis build $TRAVIS_BUILD_NUMBER"
-- git push
-- popd
+  - curl -o travis_after_all.py https://raw.github.com/dmakhno/travis_after_all/master/travis_after_all.py
+  - python travis_after_all.py
+  - export $(cat .to_export_back)
+  - |
+      if [ "$BUILD_LEADER" = "YES" ]; then
+        if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
+          echo "All Succeded! PUBLISHING..."
+          git clone "https://RReverser:$GH_TOKEN@github.com/jDataView/dist2.git" ../dist
+          cp dist/browser/* ../dist/
+          pushd ../dist
+          git config user.email "me@rreverser.com"
+          git config user.name "Ingvar Stepanyan"
+          git add .
+          git commit -m "Travis build $TRAVIS_BUILD_NUMBER"
+          git push
+          popd
+        else
+          echo "Some Failed"
+        fi
+      fi
 deploy:
   provider: npm
   email: me@rreverser.com
@@ -32,4 +45,3 @@ deploy:
   on:
     tags: true
     repo: jDataView/jBinary
-    branch: master
