@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 		},
 		mochaTest: {
 			options: {
-				reporter: 'progress'
+				reporter: process.env.CI ? 'dot' : 'progress'
 			},
 			node: {
 				src: 'test/test.js'
@@ -139,10 +139,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', ['build', 'test']);
 
 	grunt.registerTask('live', ['karma:watch:start', 'watch']);
-
-	grunt.registerTask('prepublish', function (changeLevel) {
-		grunt.task.run('default', 'bump:' + changeLevel);
-	});
 
 	grunt.registerTask('publish', function (changeLevel) {
 		grunt.task.run('default', 'bump:' + (changeLevel || 'build'));
